@@ -111,7 +111,6 @@ def process_msgs_in_folder(args):
                     total_files += 1
                     queries.append(build_query(file, ''.join(response[1]), response[2]))
                                                     
-        #return (f"{total_files = }||{files_extracted = }||{queries}")
         if total_files == 0:
             return "there are not files"
         return '||'.join(queries)
@@ -131,4 +130,23 @@ def test(folder_path):
 def validate_type(some):
     return str(type(some))
    
+
+
+def rename_files(folder_path):
+    import os
+    import traceback
+    try:
+        files = os.listdir(folder_path)
+        for file_name in files:
+            if os.path.isfile(os.path.join(folder_path, file_name)):
+                base_name, extension = os.path.splitext(file_name)
+                if not base_name.endswith("_proc_bbot"):
+                    new_name = f"{base_name}_proc_bbot{extension}"
+                    os.rename(os.path.join(folder_path, file_name), os.path.join(folder_path, new_name))
+                    print(f"Renamed: {file_name} -> {new_name}")
+        return "Success"
+    except Exception:
+        return "Error:\n" + traceback.format_exc()
+
+
     
