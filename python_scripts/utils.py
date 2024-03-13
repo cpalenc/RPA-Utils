@@ -1,5 +1,4 @@
-def extract_first_match(args):  
-    
+def extract_first_match(args):      
     try:
         import re
         import traceback
